@@ -7,12 +7,14 @@ namespace TestSystem.Data
 {
     public class AuthStore
     {
+
         // Завантажує всіх користувачів (для адміністрування)
         public static List<User> LoadUsers()
         {
             using var db = new TestSystemContext();
             return db.Users.OrderBy(u => u.Login).ToList();
         }
+
 
         // Реєстрація нового користувача
         public static bool RegisterUser(string login, string password, string fullName, string email, string userType)
@@ -42,6 +44,7 @@ namespace TestSystem.Data
             db.SaveChanges();
             return true;
         }
+
 
         // Вхід користувача 
         public static User? TrySignIn(string login, string password)
@@ -83,6 +86,7 @@ namespace TestSystem.Data
             return null;
         }
 
+
         // Допоміжний метод для міграції користувача на нову систему хешування
         private static void MigrateUserToNewHashing(User user, string password)
         {
@@ -98,6 +102,7 @@ namespace TestSystem.Data
                 db.SaveChanges();
             }
         }
+
 
         // Оновлення пароля користувача
         public static bool UpdatePassword(int userId, string newPassword)

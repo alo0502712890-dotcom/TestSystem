@@ -24,8 +24,8 @@ namespace TestSystem.Views.Pages
             var email = EmailBox.Text.Trim();
             var login = LoginBox.Text.Trim();
             var fullName = FullNameBox.Text.Trim();
-            var pass = PasswordBox.Password; // Використовуємо Password для PasswordBox
-            var confirm = ConfirmBox.Password; // Використовуємо Password для PasswordBox
+            var pass = PasswordBox.Password; 
+            var confirm = ConfirmBox.Password;
 
             // Перевірки
             if (!ValidateInput(email, login, fullName, pass, confirm))

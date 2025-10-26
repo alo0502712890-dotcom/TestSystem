@@ -21,7 +21,6 @@
                 <TextBlock Margin="4">Пароль</TextBlock>
                 <PasswordBox x:Name="PasswordBox" Height="34"/>
 
-                <!-- ДОДАЙТЕ ЦЕЙ ЕЛЕМЕНТ -->
                 <TextBlock x:Name="StatusTextBlock" 
                           TextWrapping="Wrap" 
                           Margin="10,5" 
