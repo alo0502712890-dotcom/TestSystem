@@ -1,0 +1,50 @@
+﻿<Page x:Class="TestSystem.Views.Pages.SignUpPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TestSystem.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="800"
+      Title="SignUpPage">
+
+    <Grid Background="#FFEE9934">
+        <Border Width="420" Padding="20" CornerRadius="14" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel>
+                <TextBlock FontSize="23" FontWeight="SemiBold" >Створити акаунт</TextBlock>
+
+                <TextBlock Margin="4">Email</TextBlock>
+                <TextBox x:Name="EmailBox" Height="20" Margin="0,0,0,5"/>
+
+                <TextBlock Margin="4">Логин</TextBlock>
+                <TextBox x:Name="LoginBox" Height="20" Margin="0,0,0,5"/>
+
+                <TextBlock Margin="4">Повне Ім'я</TextBlock>
+                <TextBox x:Name="FullNameBox" Height="20" Margin="0,0,0,5"/>
+
+                <TextBlock Margin="4">Пароль</TextBlock>
+                <PasswordBox x:Name="PasswordBox" Height="20" Margin="0,0,0,5"/>
+
+                <TextBlock Margin="4">Повторіть пароль</TextBlock>
+                <PasswordBox x:Name="ConfirmBox" Height="20" Margin="0,0,0,5"/>
+
+                <TextBlock FontWeight="SemiBold" Margin="4,8,4,4">Я реєструюсь як:</TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="4,0,4,8">
+                    <RadioButton x:Name="IsTeacherRadio" GroupName="UserRole" IsChecked="True" Margin="0,0,15,0">
+                        Викладач
+                    </RadioButton>
+                    <RadioButton x:Name="IsStudentRadio" GroupName="UserRole">
+                        Студент
+                    </RadioButton>
+                </StackPanel>
+
+                <TextBlock x:Name="StatusTextBlock" TextWrapping="Wrap" Margin="5,5" FontSize="11" Foreground="Gray" TextAlignment="Center" Height="22"/>
+
+                <StackPanel Orientation="Horizontal" Margin="8" HorizontalAlignment="Right">
+                    <Button Margin="0,0,8,0" Padding="10" Click="Back_Click">Назад</Button>
+                    <Button Background="DarkOliveGreen" Foreground="White" Padding="8" Click="SignUp_Click">Зареєструватись</Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

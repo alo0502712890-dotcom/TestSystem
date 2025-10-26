@@ -1,0 +1,34 @@
+# Visual Studio cache
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+out/
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.cache
+*.db
+*.zip
+*.bak
+
+# OS files
+Thumbs.db
+.DS_Store

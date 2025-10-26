@@ -1,0 +1,158 @@
+﻿<Page x:Class="TestSystem.Views.Pages.StudentDashboardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Student Dashboard"
+      Background="#FFF0F8FF">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <Border Grid.Row="0" Background="SteelBlue" Padding="15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock x:Name="WelcomeText" FontSize="20" FontWeight="Bold" 
+                              Foreground="White" Text="Панель студента"/>
+                    <TextBlock x:Name="UserNameText" FontSize="14" 
+                              Foreground="White" Opacity="0.9"/>
+                </StackPanel>
+
+                <Button Grid.Column="1" Content="Вийти" Padding="10,5" 
+                        Background="DarkRed" Foreground="White"
+                        />
+            </Grid>
+        </Border>
+
+        <!-- Основной контент -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20" HorizontalAlignment="Center" MaxWidth="800">
+
+                <!-- Карточка доступних тестів -->
+                <Border Background="White" CornerRadius="10" Padding="20" 
+                        Margin="0,0,0,20" BorderBrush="#FFDDDDDD" BorderThickness="1"
+                        >
+                    <StackPanel>
+                        <TextBlock Text="📚 Доступні тести" FontSize="18" 
+                                  FontWeight="SemiBold" Margin="0,0,0,15"/>
+
+                        <ListView x:Name="TestsListView" Height="200" 
+                                 BorderThickness="0">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#FFF8F8F8" CornerRadius="5" 
+                                            Padding="10" Margin="2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock Text="{Binding TestName}" 
+                                                          FontWeight="SemiBold"/>
+                                                <TextBlock Text="{Binding Description}" 
+                                                          FontSize="11" Foreground="Gray"
+                                                          TextWrapping="Wrap"/>
+                                            </StackPanel>
+
+                                            <Button Grid.Column="1" Content="Почати" 
+                                                    Padding="10,5" Background="#FF4CAF50"
+                                                    Foreground="White" Margin="10,0,0,0"
+                                                    />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <TextBlock x:Name="NoTestsText" Text="Наразі немає доступних тестів." 
+                                  Foreground="Gray" FontStyle="Italic" TextAlignment="Center"
+                                  Margin="10" Visibility="Collapsed"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Карточка активних спроб -->
+                <Border Background="White" CornerRadius="10" Padding="20" 
+                        Margin="0,0,0,20" BorderBrush="#FFDDDDDD" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="⏳ Активні спроби" FontSize="18" 
+                                  FontWeight="SemiBold" Margin="0,0,0,15"/>
+
+                        <ListView x:Name="ActiveSessionsListView" Height="120">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#FFFFF8E1" CornerRadius="5" 
+                                            Padding="10" Margin="2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock Text="{Binding TestName}" 
+                                                          FontWeight="SemiBold"/>
+                                                <TextBlock Text="{Binding StartTime}" 
+                                                          FontSize="11" Foreground="Gray"/>
+                                            </StackPanel>
+
+                                            <Button Grid.Column="1" Content="Продовжити" 
+                                                    Padding="10,5" Background="#FFFF9800"
+                                                    Foreground="White" Margin="10,0,0,0"
+                                                    />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <TextBlock x:Name="NoActiveSessionsText" 
+                                  Text="Немає активних спроб тестування." 
+                                  Foreground="Gray" FontStyle="Italic" TextAlignment="Center"
+                                  Margin="10" Visibility="Collapsed"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Карточка історії тестувань -->
+                <Border Background="White" CornerRadius="10" Padding="20" 
+                        BorderBrush="#FFDDDDDD" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="📊 Історія тестувань" FontSize="18" 
+                                  FontWeight="SemiBold" Margin="0,0,0,15"/>
+
+                        <DataGrid x:Name="HistoryDataGrid" Height="150" 
+                                 AutoGenerateColumns="False" IsReadOnly="True"
+                                 HeadersVisibility="Column">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Тест" Binding="{Binding TestName}" Width="*"/>
+                                <DataGridTextColumn Header="Дата" Binding="{Binding CompletionDate}" Width="120"/>
+                                <DataGridTextColumn Header="Результат" Binding="{Binding Score}" Width="80"/>
+                                <DataGridTextColumn Header="Макс. бал" Binding="{Binding MaxScore}" Width="80"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <TextBlock x:Name="NoHistoryText" 
+                                  Text="Історія тестувань відсутня." 
+                                  Foreground="Gray" FontStyle="Italic" TextAlignment="Center"
+                                  Margin="10" Visibility="Collapsed"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Статус бар -->
+        <Border Grid.Row="2" Background="#FFE8E8E8" Padding="10">
+            <TextBlock x:Name="StatusText" Text="Готовий до тестування" 
+                      HorizontalAlignment="Center" Foreground="Gray"/>
+        </Border>
+    </Grid>
+</Page>
