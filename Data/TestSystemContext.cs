@@ -23,6 +23,7 @@ namespace TestSystem.Data
         public virtual DbSet<TestSession> TestSessions { get; set; }
         public virtual DbSet<UserAnswer> UserAnswers { get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -30,6 +31,7 @@ namespace TestSystem.Data
                 optionsBuilder.UseSqlServer("Server=Beneduk\\SQLEXPRESS;Database=TestSystem;Trusted_Connection=True;TrustServerCertificate=True;");
             }
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
