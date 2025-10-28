@@ -1,0 +1,86 @@
+﻿<Page x:Class="TestSystem.Views.QuestionEditorPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TestSystem.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="QuestionEditorPage">
+
+    <Grid Margin="10" Background="#FFF6CE84">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Текст питання -->
+        <GroupBox Grid.Row="0" Header="Текст питання" Margin="0,0,0,5">
+            <TextBox x:Name="QuestionTextTextBox" Height="50" TextWrapping="Wrap"
+                 AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+        </GroupBox>
+
+        <!-- Налаштування питання -->
+        <GroupBox Grid.Row="1" Header="Налаштування" Height="170">
+            <StackPanel>
+                <TextBlock Text="Тип питання:" Margin="0,0,0,5" />
+                <ComboBox x:Name="QuestionTypeComboBox" SelectedIndex="0" Width="200" HorizontalAlignment="Left">
+                    <ComboBoxItem Content="Один варіант відповіді" Tag="Single"/>
+                    <ComboBoxItem Content="Декілька варіантів відповіді" Tag="Multiple"/>
+                </ComboBox>
+
+                <TextBlock Text="Вага питання (балів):" Margin="0,10,0,5"/>
+                <TextBox x:Name="WeightTextBox" Text="1" Width="50" HorizontalAlignment="Left"/>
+
+                <TextBlock Text="Зображення (опціонально):" Margin="0,10,0,5"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="ImagePathTextBox" Width="300" IsReadOnly="True"/>
+                    <Button Content="Обрати..." Click="BrowseImage_Click" Margin="10,0,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Варіанти відповідей -->
+        <GroupBox Grid.Row="2" Header="Варіанти відповідей" Margin="0,0,0,10" Height="130">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="215*"/>
+                    <ColumnDefinition Width="169*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10" Grid.ColumnSpan="2">
+                    <Button Content="➕ Додати відповідь" Click="AddAnswer_Click"/>
+                    <Button Content="🗑️ Видалити" Click="DeleteAnswer_Click" Margin="10,0,0,0"/>
+                </StackPanel>
+
+                <ListView Grid.Row="1" x:Name="AnswersListView" Height="Auto" Grid.ColumnSpan="2" Margin="0,1,0,1">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Правильна" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding IsCorrect}" Checked="IsCorrect_Checked"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Текст відповіді" DisplayMemberBinding="{Binding AnswerText}" Width="400"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </GroupBox>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Скасувати" Click="Cancel_Click" Padding="15,5"/>
+            <Button Content="Зберегти" Click="Save_Click" Background="#FF4CAF50" 
+                 Foreground="White" Padding="15,5" Margin="10,0,0,0"/>
+        </StackPanel>
+    </Grid>
+</Page>

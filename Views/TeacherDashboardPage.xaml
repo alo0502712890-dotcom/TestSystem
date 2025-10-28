@@ -9,14 +9,136 @@
       Title="TeacherDashboardPage">
 
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock x:Name="WelcomeText" FontSize="24" FontWeight="Bold" 
-                      Margin="20" TextAlignment="Center"/>
-            <TextBlock Text="Панель викладача" FontSize="18" 
-                      HorizontalAlignment="Center" Margin="10"/>
-            <Button Content="Меню тестів" Width="150" Height="30" Margin="10"/>
-            <Button Content="Статистика" Width="150" Height="30" Margin="10"/>
-            <Button Content="Вийти" Width="150" Height="30" Margin="10"/>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Панель керування -->
+        <Border Grid.Row="0" Background="#FFE8E8E8" Padding="10">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Створити новий тест" Grid.Column="0" Click="CreateNewTest_Click"
+            Padding="15,8" Background="#FF4CAF50" Foreground="White"
+            FontWeight="SemiBold" Margin="0,0,15,0"/>
+
+                <Button Content="Редагувати" Grid.Column="1" Click="EditTest_Click"
+            Padding="15,8" Margin="0,0,15,0" Background="#FF4CAF50" Foreground="White"/>
+
+                <TextBlock x:Name="UserInfoText" Grid.Column="2" VerticalAlignment="Center" Margin="10,0,0,0" FontWeight="SemiBold"/>
+
+                <TextBlock x:Name="TestsCountText" Grid.Column="3" VerticalAlignment="Center" 
+            Margin="20,0,0,0" FontWeight="SemiBold"/>
+
+                <Button Content="Вихід" Grid.Column="5" Click="Logout_Click"
+            Padding="15,8" Background="#FFE87C7C" Foreground="White"/>
+
+            </Grid>
+        </Border>
+
+        <!-- Список тестів -->
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <ListView Grid.Row="0" x:Name="TestsListView" 
+                 BorderThickness="1" BorderBrush="#FFCCCCCC">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Назва тесту" DisplayMemberBinding="{Binding TestName}" Width="200"/>
+                        <GridViewColumn Header="Опис" DisplayMemberBinding="{Binding Description}" Width="300"/>
+                        <GridViewColumn Header="Питань" Width="60">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Questions.Count}" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Час (хв)" Width="70">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TimeLimit}" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Спроб" Width="60">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding MaxAttempts}" TextAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Дата створення" DisplayMemberBinding="{Binding CreatedDate, StringFormat=dd.MM.yyyy}" Width="110"/>
+                        <GridViewColumn Header="Статус" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value="Активний"/>
+                                                <Setter Property="Foreground" Value="Green"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsActive}" Value="False">
+                                                        <Setter Property="Text" Value="Неактивний"/>
+                                                        <Setter Property="Foreground" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="✏️ Редагувати тест" Click="EditTest_Click"/>
+                        <Separator/>
+                        <MenuItem Header="📊 Переглянути статистику" Click="ViewStatistics_Click"/>
+                        <Separator/>
+                        <MenuItem Header="🗑️ Видалити тест" Click="DeleteTest_Click" Foreground="Red"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+
+            <!-- Статусний рядок -->
+            <Border Grid.Row="1" Background="#FFF5F5F5" BorderBrush="#FFDDDDDD" 
+               BorderThickness="1,0,1,1" Padding="8,4">
+                <TextBlock x:Name="StatusText" Text="Оберіть тест для перегляду дій"/>
+            </Border>
+        </Grid>
+
+        <!-- Повідомлення, якщо тестів немає -->
+        <Border Grid.Row="1" x:Name="NoTestsPanel" Background="#FFF0F0F0" 
+           Visibility="Collapsed" Margin="10">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="📚 У вас ще немає тестів" FontSize="16" FontWeight="SemiBold"
+                      Foreground="Gray" TextAlignment="Center" Margin="0,0,0,10"/>
+                <TextBlock Text="Створіть перший тест, щоб почати роботу з системою"
+                      Foreground="DarkGray" TextAlignment="Center"/>
+                <Button Content="Створити перший тест" Click="CreateNewTest_Click"
+                   Padding="15,8" Background="#FF4CAF50" Foreground="White"
+                   FontWeight="SemiBold" Margin="0,20,0,0"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>
