@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace TestSystem.Models
         public string ImagePath { get; set; }
         public int SortOrder { get; set; }
 
+        [ForeignKey("TestID")]
         public Test Test { get; set; }
         public ICollection<Answer> Answers { get; set; }
         public ICollection<UserAnswer> UserAnswers { get; set; }

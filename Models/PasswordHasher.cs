@@ -72,7 +72,7 @@ namespace TestSystem.Models
             }
         }
 
-        // НОВИЙ МЕТОД: Перевірка чистого тексту (для користувачів 1 та 2)
+        // Перевірка чистого тексту 
         public static bool VerifyPlainText(string password, string storedPassword)
         {
             return password == storedPassword;
