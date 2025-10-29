@@ -73,17 +73,14 @@ namespace TestSystem.Data
         public static void UpdateTestDetails(Test updatedTest, List<Question> updatedQuestions)
         {
             using var db = new TestSystemContext();
-
-            // 1. Прикріплюємо основний тест (EntityState.Modified)
             db.Tests.Attach(updatedTest).State = EntityState.Modified;
 
-            // 2. Отримуємо поточний список ID питань, які є в БД
             var existingQuestionIds = db.Questions
                 .Where(q => q.TestID == updatedTest.TestID)
                 .Select(q => q.QuestionID)
                 .ToList();
 
-            // 3. Обробка питань
+            // Обробка питань
             foreach (var question in updatedQuestions)
             {
                 question.TestID = updatedTest.TestID;
@@ -104,33 +101,28 @@ namespace TestSystem.Data
                     // Існуюче питання: оновлюємо
                     db.Questions.Attach(question).State = EntityState.Modified;
                     existingQuestionIds.Remove(question.QuestionID);
-
-                    // >>> ІНТЕГРАЦІЯ: Обробляємо відповіді для цього існуючого питання
                     UpdateAnswersForQuestion(db, question);
                 }
             }
 
-            // 4. Видалення питань, які були видалені з UI
+            // Видалення питань, які були видалені з UI
             var questionsToDelete = db.Questions
                 .Where(q => existingQuestionIds.Contains(q.QuestionID))
                 .ToList();
 
             db.Questions.RemoveRange(questionsToDelete);
-
-            // Зберігаємо всі зміни в одній транзакції!
             db.SaveChanges();
         }
 
 
         private static void UpdateAnswersForQuestion(TestSystemContext db, Question updatedQuestion)
         {
-            // 1. Отримуємо поточні ID відповідей, які існують у базі даних
+            // Отримуємо поточні ID відповідей, які існують у базі даних
             var existingAnswerIds = db.Answers
                 .Where(a => a.QuestionID == updatedQuestion.QuestionID)
                 .Select(a => a.AnswerID)
                 .ToList();
 
-            // 2. Обробляємо кожну відповідь з оновленого списку (з UI)
             if (updatedQuestion.Answers != null)
             {
                 foreach (var answer in updatedQuestion.Answers)

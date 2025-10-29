@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <!-- Панель керування -->
-        <Border Grid.Row="0" Background="#FFE8E8E8" Padding="10">
+        <Border Grid.Row="0" Background="#FFB2D6AB" Padding="10">
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -52,7 +52,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <ListView Grid.Row="0" x:Name="TestsListView" 
+            <ListView Grid.Row="0" x:Name="TestsListView" Background="#FFF4D2A2"
                  BorderThickness="1" BorderBrush="#FFCCCCCC">
                 <ListView.View>
                     <GridView>

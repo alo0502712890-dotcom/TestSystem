@@ -1,0 +1,66 @@
+﻿<Page x:Class="TestSystem.Views.TestPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="TestPage"
+      Background="#FFF0F8FF">
+
+    <Grid Background="#FFD9BF9C">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#FFC05E26" Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="TestNameBlock" Grid.Column="0" Text="Тестування: Завантаження..." Foreground="White" FontSize="18" FontWeight="Bold"/>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="⏳ Залишилось: " Foreground="#FFADD8E6" FontSize="14"/>
+                    <TextBlock x:Name="TimerBlock" Text="--:--:--" Foreground="#FFFFD700" FontSize="14" FontWeight="Bold"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="20">
+            <StackPanel x:Name="QuestionContainer" MaxWidth="800" HorizontalAlignment="Center">
+
+                <TextBlock x:Name="QuestionNumberBlock" FontSize="14" Foreground="Gray" Margin="0,0,0,5"/>
+                <Border Background="White" BorderBrush="#FFCCCCCC" BorderThickness="1" CornerRadius="5" Padding="20">
+                    <StackPanel>
+                        <TextBlock x:Name="QuestionTextBlock" Text="Текст питання завантажується..." FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap" Margin="0,0,0,15"/>
+
+                        <Image x:Name="QuestionImage"
+                               Stretch="Uniform"
+                               Height="200"
+                               Margin="0,0,0,15"
+                               Visibility="Collapsed"/>
+                        <StackPanel x:Name="AnswersPanel">
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Row="2" Background="#FFE8E8E8" Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="← Попереднє" x:Name="PrevButton" Padding="15,8" Margin="0,0,10,0" Click="PrevButton_Click"/>
+                <TextBlock x:Name="StatusText" Grid.Column="1" Text="0 з 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold"/>
+
+                <Grid Grid.Column="2">
+                    <Button Content="Наступне →" x:Name="NextButton" Padding="15,8" HorizontalAlignment="Left" Click="NextButton_Click" Width="120"/>
+                    <Button Content="Завершити тест" x:Name="FinishButton" Padding="15,8" Background="DarkRed" Foreground="White" HorizontalAlignment="Right" Click="FinishButton_Click" Visibility="Collapsed" Width="150"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

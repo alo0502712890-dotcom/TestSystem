@@ -11,15 +11,15 @@ namespace TestSystem.Models
     {
         public int QuestionID { get; set; }
         public int TestID { get; set; }
-        public string QuestionText { get; set; }
-        public string QuestionType { get; set; } // Single / Multiple
+        public string QuestionText { get; set; } = string.Empty;
+        public string QuestionType { get; set; } = string.Empty;
         public int Weight { get; set; }
-        public string ImagePath { get; set; }
+        public string? ImagePath { get; set; }
         public int SortOrder { get; set; }
 
         [ForeignKey("TestID")]
         public Test Test { get; set; }
-        public ICollection<Answer> Answers { get; set; }
-        public ICollection<UserAnswer> UserAnswers { get; set; }
+        public ICollection<Answer> Answers { get; set; } = new List<Answer>();
+        public ICollection<UserAnswer> UserAnswers { get; set; } = new List<UserAnswer>();
     }
 }
