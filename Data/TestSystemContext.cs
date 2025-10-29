@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,8 @@ namespace TestSystem.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=Beneduk\\SQLEXPRESS;Database=TestSystem;Trusted_Connection=True;TrustServerCertificate=True;");
+                string connectionString = ConfigurationManager.ConnectionStrings["SQLProvider"].ConnectionString;
+                optionsBuilder.UseSqlServer(connectionString);
             }
         }
 
