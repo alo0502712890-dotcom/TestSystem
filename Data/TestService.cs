@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TestSystem.Models;
 
-namespace TestSystem.Data
+namespace TestSystem.cl.Data
 {
     public class TestService
     {
